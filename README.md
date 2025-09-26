@@ -54,34 +54,6 @@ Now, the Stack becomes empty, which means we have visited all the nodes, and our
  <li>If Not Visited, add it to the STACK. Else Call The Function Again Until No more nodes needs to be visited.</li>
 </ol></B>
 
-
-<h3>Code :</h3>
-
-```
-#Depth First Search 
-from collections import defaultdict
-def dfs(graph, start, visited, path):
-    path.append(start)  
-    visited[start] = True 
-   
-    for neighbour in graph[start]:
-        if not visited[neighbour]:
-            dfs(graph, neighbour, visited, path)
-    return path
-graph = defaultdict(list)
-n, e = map(int, input().split())  
-for i in range(e):
-    u, v = input().split()  
-    graph[u].append(v)
-    graph[v].append(u)  
-start = 'A'
-visited = defaultdict(bool)
-path = []
-traversed_path = dfs(graph, start, visited, path)
-print(traversed_path)
-print(graph)
-```
-
 <hr>
 <h3>Sample Input</h3>
 <hr>
@@ -115,8 +87,40 @@ F H <BR>
 <h3>Sample Output</h3>
 <hr>
 ['0', '1', '2', '3', '4']
-
 <hr>
+
+<h3>Program:</h3>
+
+
+```
+from collections import defaultdict
+def dfs(graph, start, visited, path):
+    path.append(start)
+    visited[start] = True
+    for neighbour in sorted(graph[start]):   # sort to ensure consistent DFS order
+        if not visited[neighbour]:
+            dfs(graph, neighbour, visited, path)
+    return path
+graph = defaultdict(list)
+n, e = map(int, input().split())
+for i in range(e):
+    u, v = input().split()
+    graph[u].append(v)
+    graph[v].append(u)
+start = '0' if '0' in graph else 'A'
+visited = defaultdict(bool)
+path = []
+traversedpath = dfs(graph, start, visited, path)
+print(traversedpath)
+```
+
+
+<h3>Output:</h3>
+
+<img width="839" height="666" alt="image" src="https://github.com/user-attachments/assets/b6fbc178-1123-444a-9126-f576aca771ed" />
+
+<img width="792" height="600" alt="image" src="https://github.com/user-attachments/assets/b541daa9-bf5d-4efb-b763-bfbd48944cc0" />
+
 <h3>Result:</h3>
 <hr>
 <p>Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.</p>
